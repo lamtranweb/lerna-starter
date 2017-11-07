@@ -1,0 +1,15 @@
+{
+  "name": "lerna-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Lam Tran <lamtran@gmail.com> (http://lamtran.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "lerna": "^2.5.1"
+  }
+}
