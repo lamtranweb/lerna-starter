@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const merge = require('webpack-merge');
@@ -7,7 +8,6 @@ const merge = require('webpack-merge');
 const commonConfig = {
   entry: {
     app: './src/js/app.js',
-    about: './src/js/about.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -19,9 +19,13 @@ const commonConfig = {
   },
   plugins: [
     //   new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin( 'vendors'),
+    //   new webpack.optimize.CommonsChunkPlugin( 'vendors'),
     new HtmlWebpackPlugin({template: './src/index.html'}),
-    //    new BundleAnalyzerPlugin()
+    new AddAssetHtmlPlugin({ filepath: require.resolve('./node_modules/vendor/dll/util.dll.js') }),
+    new webpack.DllReferencePlugin({
+        context: __dirname,
+       manifest: require('../vendor/dll/util-manifest.json'), 
+    })
   ],
 };
 
@@ -80,6 +84,11 @@ const developmentConfig = () => {
     }
 
   };
+
+  console.log('analyzer', process.env.BUNDLE_ANALYZER);
+  if (process.env.BUNDLE_ANALYZER) {
+    config.plugins.push(new BundleAnalyzerPlugin());
+  }
 
   return merge(commonConfig, config);
 };
