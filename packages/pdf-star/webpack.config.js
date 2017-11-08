@@ -23,9 +23,9 @@ const commonConfig = {
     new HtmlWebpackPlugin({template: './src/index.html'}),
     new AddAssetHtmlPlugin({ filepath: require.resolve('./node_modules/vendor/dll/util.dll.js') }),
     new webpack.DllReferencePlugin({
-        context: __dirname,
-       manifest: require('../vendor/dll/util-manifest.json'), 
-    })
+      context: __dirname,
+      manifest: require('../vendor/dll/util-manifest.json'), 
+    }),
   ],
 };
 
@@ -60,7 +60,7 @@ const developmentConfig = () => {
       overlay: {
         errors: true,
         warnings: true,
-      } 
+      }, 
     },
     plugins: [
       // Ignore node_modules so CPU usage with poll
@@ -71,18 +71,17 @@ const developmentConfig = () => {
     ],
     module: {
       rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        enforce: 'pre',
-        loader: 'eslint-loader',
-        options: {
-          emitWarning: true,
-        }
-      }
-      ]
-    }
-
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          enforce: 'pre',
+          loader: 'eslint-loader',
+          options: {
+            emitWarning: true,
+          },
+        },
+      ],
+    },
   };
 
   console.log('analyzer', process.env.BUNDLE_ANALYZER);
