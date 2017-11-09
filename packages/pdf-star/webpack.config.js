@@ -1,20 +1,20 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const AddAssetHtmlPlugin = require("add-asset-html-webpack-plugin");
-const webpack = require("webpack");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
-const merge = require("webpack-merge");
-const parts = require("./webpack.parts.js");
+const merge = require('webpack-merge');
+const parts = require('./webpack.parts.js');
 
 const commonConfig = merge([
   {
     entry: {
-      app: "./src/js/app.js"
+      app: './src/js/app.js'
     },
     output: {
-      path: path.resolve(__dirname, "dist"),
-      filename: "[name].bundle.js"
+      path: path.resolve(__dirname, 'dist'),
+      filename: '[name].bundle.js'
     },
     module: {
       rules: []
@@ -22,19 +22,19 @@ const commonConfig = merge([
     plugins: [
       //   new webpack.optimize.UglifyJsPlugin(),
       //   new webpack.optimize.CommonsChunkPlugin( 'vendors'),
-      new HtmlWebpackPlugin({ template: "./src/index.html" }),
+      new HtmlWebpackPlugin({ template: './src/index.html' }),
       new AddAssetHtmlPlugin({
-        filepath: require.resolve("./node_modules/vendor/dll/util.dll.js")
+        filepath: require.resolve('./node_modules/vendor/dll/util.dll.js')
       }),
       new webpack.DllReferencePlugin({
         context: __dirname,
-        manifest: require("../vendor/dll/util-manifest.json")
+        manifest: require('../vendor/dll/util-manifest.json')
       })
     ]
   },
   parts.loadCSS(),
   parts.loadSCSS(),
-  parts.loadJavascript({ include: paths.resolve(__dirname, 'src/js') }),
+  parts.loadJavascript({ include: path.resolve(__dirname, 'src/js') })
 ]);
 
 const productionConfig = () => commonConfig;
@@ -54,7 +54,7 @@ const developmentConfig = () => {
       historyApiFallback: true,
 
       // Display only errors to reduce the amount of output.
-      stats: "errors-only",
+      stats: 'errors-only',
 
       // Parse host and port from env to allow customization.
       //
@@ -73,15 +73,15 @@ const developmentConfig = () => {
     plugins: [
       // Ignore node_modules so CPU usage with poll
       // watching drops significantly
-      new webpack.WatchIgnorePlugin([path.join(__dirname, "node_modules")])
+      new webpack.WatchIgnorePlugin([path.join(__dirname, 'node_modules')])
     ],
     module: {
       rules: [
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          enforce: "pre",
-          loader: "eslint-loader",
+          enforce: 'pre',
+          loader: 'eslint-loader',
           options: {
             emitWarning: true
           }

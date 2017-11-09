@@ -1,6 +1,7 @@
 //var _ = require('lodash');
-require('./main.css');
+import './main.css';
 require('./main.scss');
+import store from './store';
 
-
-module.exports = 'app';
+console.log('store', store);
+export default 'foo';

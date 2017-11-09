@@ -1,11 +1,7 @@
 {
 "presets": [
     [
-      "env": {
-        "development": {
-            "plugins": ["react-hot-loader/babel"]
-        }
-      },
+      "env",
       {
         "modules": false,
         "targets": {
@@ -13,6 +9,11 @@
         }
       }
     ]
-  ]
+  ],
+  "env": {
+      "development": {
+          "plugins": ["react-hot-loader/babel"]
+      }
+  },
 }
 
